@@ -9,7 +9,7 @@ function App() {
    
 const [todoitem,settodoitem]=useState([
   {
-   name:"go to school ",
+   name:"go to school daily ",
    duedate: "10/11/24",
   },
   {
@@ -26,10 +26,13 @@ const [todoitem,settodoitem]=useState([
  
  
 const handelonclick=(todoname,toduedate)=>{
-  console.log(`${todoname} ${toduedate}`)
- const newitem = [...todoitem ,
-  { name:todoname , duedate:toduedate},]
-  settodoitem(newitem)
+  
+//  const newitem = [...todoitem ,
+//   { name:todoname , duedate:toduedate},]
+  settodoitem((currval)=>
+       [...currval,
+        { name:todoname , duedate:toduedate},]
+  )
 }
 const handeldelete=(itemname)=>{
  const newitem= todoitem.filter(item=>item.name!==itemname)
@@ -40,7 +43,11 @@ const handeldelete=(itemname)=>{
       <h1 className="text-center"> TODO APP</h1>
        <Container> 
          <Addtodo  onnewitem={handelonclick}></Addtodo>
-          <Itemlist todoitem={todoitem} handeldelete={handeldelete}  ></Itemlist>
+         
+         {todoitem.length===0 && <h1> nothing to do</h1>      }  
+          <Itemlist todoitem={todoitem} handeldelete={handeldelete}  >
+             
+          </Itemlist>
             {/* <div className="col"> college</div>
             <div className="col"> 11/12/24</div>
             <div className="col"> 
